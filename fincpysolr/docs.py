@@ -30,6 +30,10 @@ class FincParser(VuFindParser):
     # static fields (finc)
 
     @property
+    def access_facet(self):
+        return self._field("access_facet")
+
+    @property
     def barcode(self):
         return self._field("barcode")
 
@@ -69,6 +73,18 @@ class FincParser(VuFindParser):
                     return rsn.replace("({0})".format(self.isil), "")
 
     @property
+    def rvk_facet(self):
+        return self._field("rvk_facet")
+
+    @property
+    def rvk_label(self):
+        return self._field("rvk_label")
+
+    @property
+    def rvk_path(self):
+        return self._field("rvk_path")
+
+    @property
     def signatur(self):
         return self._field("signatur")
 
@@ -83,6 +99,10 @@ class FincParser(VuFindParser):
     @property
     def source_id(self):
         return self._field("source_id")
+
+    @property
+    def zdb(self):
+        return self._field("zdb")
 
     # dynamic fields (custom)
 
@@ -99,10 +119,18 @@ class FincParser(VuFindParser):
     @property
     def callnumber_isil(self):
         cn_de14 = self._field("callnumber_{0}".format(self.isil.replace("-", "").lower()))
-        if cn_de14 and len(cn_de14) > 0:
+        if type(cn_de14) == list and len(cn_de14) > 0:
             if len(cn_de14) == 1:
                 cn_de14 = cn_de14[0]
             return cn_de14
+
+    @property
+    def facet_avail(self):
+        return self._field("facet_avail")
+
+    @property
+    def format_de14(self):
+        return self._field_first("format_de14")
 
     @property
     def format_isil(self):
@@ -112,21 +140,25 @@ class FincParser(VuFindParser):
 
     @property
     def marc_holding_location(self):
-        return self.marc.holding_location
+        if self.marc is not None:
+            return self.marc.holding_location
 
     @property
     def marc_holding_elocation(self):
-        return self.marc.holding_elocation
+        if self.marc is not None:
+            return self.marc.holding_elocation
 
     # ai blob fields
 
     @property
     def ai_blob_rft_date(self):
-        return self.ai_blob.rft_date
+        if self.ai_blob is not None:
+            return self.ai_blob.rft_date
 
     @property
     def ai_blob_x_date(self):
-        return self.ai_blob.x_date
+        if self.ai_blob is not None:
+            return self.ai_blob.x_date
 
 
 class FincMarcParser(VuFindMarcParser):
