@@ -20,14 +20,56 @@ class FincParser(VuFindParser):
 
     def __init__(self, doc, isil, marc=False, ai=False):
         self.isil = isil
-        self.isil_slim = self.isil.replace("-", "").lower()
-        self.isil_pattern = "({0})".format(self.isil)
+        self.isil_slim = self._isil_slim(isil)
+        self.isil_pattern = self._isil_pattern(isil)
         super().__init__(doc, marc=marc)
         if marc:
             self.marc = FincMarcParser(self.raw, self.isil)
         self.ai_blob = None
         if ai:
             self.ai_blob = FincArticleParser(self.raw)
+
+    @staticmethod
+    def _isil_slim(isil):
+        return isil.replace("-", "").lower()
+
+    @staticmethod
+    def _isil_pattern(isil):
+        return "({0})".format(isil)
+
+    @staticmethod
+    def _isil_replace(target, isil):
+        return target.replace("({0})".format(isil), "")
+
+    # static fields (vufind)
+
+    def _ctrlnum_isil(self, isil, unique=True):
+        ctrlnums = self.ctrlnum
+        if ctrlnums is not None:
+            isil_ctrl = []
+            for ctrln in ctrlnums:
+                if ctrln.startswith(self._isil_pattern(isil)):
+                    isil_ctrl.append(self._isil_replace(ctrln, isil))
+            if len(isil_ctrl) > 0:
+                if len(isil_ctrl) == 1 and unique:
+                    isil_ctrl = isil_ctrl[0]
+                return isil_ctrl
+
+    @property
+    def ctrlnum_bsz(self):
+        return self._ctrlnum_isil("DE-576")
+
+    @property
+    def ctrlnum_kxp(self):
+        return self._ctrlnum_isil("DE-627")
+
+    @property
+    def ctrlnum_agv(self):
+        return self._ctrlnum_isil("DE-599", unique=False)
+
+    @property
+    def ctrlnum_oclc(self):
+        return self._ctrlnum_isil("OCoLC", unique=False)
 
     # static fields (finc)
 
@@ -51,12 +93,24 @@ class FincParser(VuFindParser):
                 return barcodes
 
     @property
+    def finc_class_facet(self):
+        return self._field("finc_class_facet")
+
+    @property
     def imprint(self):
         return self._field("imprint")
 
     @property
     def mega_collection(self):
         return self._field("mega_collection")
+
+    @property
+    def publish_place(self):
+        return self._field("publishPlace")
+
+    @property
+    def purchase(self):
+        return self._field("purchase")
 
     @property
     def record_id(self):
@@ -90,24 +144,43 @@ class FincParser(VuFindParser):
     def signatur(self):
         return self._field("signatur")
 
-    @property
-    def signatur_isil(self):
+    def _signatur_isil(self, isil):
         signatur = self.signatur
         if signatur is not None:
-            signatur_isil = [s.replace(self.isil_pattern, "")
-                             for s in signatur if s.startswith(self.isil_pattern)]
+            signatur_isil = [s.replace(self._isil_pattern(isil), "")
+                             for s in signatur if s.startswith(self._isil_pattern(isil))]
             if len(signatur_isil) > 0:
                 return signatur_isil
+
+    @property
+    def signatur_isil(self):
+        return self._signatur_isil(self.isil)
 
     @property
     def source_id(self):
         return self._field("source_id")
 
     @property
+    def topic_id(self):
+        return self._field("topic_id")
+
+    @property
+    def topic_ref(self):
+        return self._field("topic_ref")
+
+    @property
+    def urn(self):
+        return self._field("urn")
+
+    @property
     def zdb(self):
         return self._field("zdb")
 
-    # dynamic fields (custom)
+    # dynamic fields (vufind)
+
+    @property
+    def finc_id_str(self):
+        return self._field("finc_id_str")
 
     @property
     def kxp_id_str(self):
@@ -116,6 +189,10 @@ class FincParser(VuFindParser):
     @property
     def swb_id_str(self):
         return self._field("swb_id_str")
+
+    @property
+    def fincclass_txtF_mv(self):
+        return self._field("fincclass_txtF_mv")
 
     # dynamic fields (finc)
 
@@ -140,6 +217,10 @@ class FincParser(VuFindParser):
     @property
     def facet_avail(self):
         return self._field("facet_avail")
+
+    @property
+    def format_finc(self):
+        return self._field_first("format_finc")
 
     @property
     def format_de14(self):
