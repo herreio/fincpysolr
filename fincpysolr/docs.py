@@ -20,6 +20,8 @@ class FincParser(VuFindParser):
 
     def __init__(self, doc, isil, marc=False, ai=False):
         self.isil = isil
+        self.isil_slim = self.isil.replace("-", "").lower()
+        self.isil_pattern = "({0})".format(self.isil)
         super().__init__(doc, marc=marc)
         if marc:
             self.marc = FincMarcParser(self.raw, self.isil)
@@ -43,8 +45,8 @@ class FincParser(VuFindParser):
         if bcs is not None:
             barcodes = []
             for bc in bcs:
-                if bc.startswith("({0})".format(self.isil)):
-                    barcodes.append(bc.replace("({0})".format(self.isil), ""))
+                if bc.startswith(self.isil_pattern):
+                    barcodes.append(bc.replace(self.isil_pattern, ""))
             if len(barcodes) > 0:
                 return barcodes
 
@@ -69,8 +71,8 @@ class FincParser(VuFindParser):
         rsns = self.rsn
         if rsns is not None:
             for rsn in rsns:
-                if rsn.startswith("({0})".format(self.isil)):
-                    return rsn.replace("({0})".format(self.isil), "")
+                if rsn.startswith(self.isil_pattern):
+                    return rsn.replace(self.isil_pattern, "")
 
     @property
     def rvk_facet(self):
@@ -92,9 +94,10 @@ class FincParser(VuFindParser):
     def signatur_isil(self):
         signatur = self.signatur
         if signatur is not None:
-            signatur_institution = [s.replace("({0})".format(self.isil),"") for s in signatur if self.isil in s]
-            if len(signatur_institution) > 0:
-                return signatur_institution
+            signatur_isil = [s.replace(self.isil_pattern, "")
+                             for s in signatur if s.startswith(self.isil_pattern)]
+            if len(signatur_isil) > 0:
+                return signatur_isil
 
     @property
     def source_id(self):
@@ -117,12 +120,22 @@ class FincParser(VuFindParser):
     # dynamic fields (finc)
 
     @property
-    def callnumber_isil(self):
-        cn_de14 = self._field("callnumber_{0}".format(self.isil.replace("-", "").lower()))
+    def callnumber_de14(self):
+        cn_de14 = self._field("callnumber_de14")
         if type(cn_de14) == list and len(cn_de14) > 0:
-            if len(cn_de14) == 1:
-                cn_de14 = cn_de14[0]
             return cn_de14
+
+    @property
+    def callnumber_de15(self):
+        cn_de15 = self._field("callnumber_de15")
+        if type(cn_de15) == list and len(cn_de15) > 0:
+            return cn_de15
+
+    @property
+    def callnumber_isil(self):
+        cn_isil = self._field("callnumber_{0}".format(self.isil_slim))
+        if type(cn_isil) == list and len(cn_isil) > 0:
+            return cn_isil
 
     @property
     def facet_avail(self):
@@ -133,8 +146,12 @@ class FincParser(VuFindParser):
         return self._field_first("format_de14")
 
     @property
+    def format_de15(self):
+        return self._field_first("format_de15")
+
+    @property
     def format_isil(self):
-        return self._field_first("format_{0}".format(self.isil.replace("-", "").lower()))
+        return self._field_first("format_{0}".format(self.isil_slim))
 
     # marc fields
 
