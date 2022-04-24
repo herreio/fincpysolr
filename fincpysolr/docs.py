@@ -43,6 +43,17 @@ class FincParser(VuFindParser):
 
     # static fields (vufind)
 
+    @property
+    def building_isil(self):
+        bs = self.building
+        if bs is not None:
+            buildings = []
+            for b in bs:
+                if b.startswith(self.isil_pattern):
+                    buildings.append(b.replace(self.isil_pattern, ""))
+            if len(buildings) > 0:
+                return buildings
+
     def _ctrlnum_isil(self, isil, unique=True):
         ctrlnums = self.ctrlnum
         if ctrlnums is not None:
@@ -197,6 +208,24 @@ class FincParser(VuFindParser):
     # dynamic fields (finc)
 
     @property
+    def branch_de14(self):
+        br_isil = self._field("branch_de14")
+        if type(br_isil) == list and len(br_isil) > 0:
+            return br_isil
+
+    @property
+    def branch_de15(self):
+        br_isil = self._field("branch_de15")
+        if type(br_isil) == list and len(br_isil) > 0:
+            return br_isil
+
+    @property
+    def branch_isil(self):
+        br_isil = self._field("branch_{0}".format(self.isil_slim))
+        if type(br_isil) == list and len(br_isil) > 0:
+            return br_isil
+
+    @property
     def callnumber_de14(self):
         cn_de14 = self._field("callnumber_de14")
         if type(cn_de14) == list and len(cn_de14) > 0:
@@ -217,6 +246,10 @@ class FincParser(VuFindParser):
     @property
     def facet_avail(self):
         return self._field("facet_avail")
+
+    @property
+    def facet_de14_branch_collcode_exception(self):
+        return self._field("facet_de14_branch_collcode_exception")
 
     @property
     def format_finc(self):
