@@ -1,7 +1,7 @@
-certifi==2021.10.8
+certifi==2022.5.18.1
 charset-normalizer==2.0.12
 idna==3.3
-pymarc==4.1.2
+pymarc==4.2.0
 pysolr==3.9.0
 python-dateutil==2.8.2
 requests==2.27.1
