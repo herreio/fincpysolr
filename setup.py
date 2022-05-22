@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="fincpysolr",
-    version="0.1.5",
+    version="0.1.6",
     author="Donatus Herre",
     author_email="donatus.herre@slub-dresden.de",
     description="Access finc Solr documents.",
