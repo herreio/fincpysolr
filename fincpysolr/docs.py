@@ -198,8 +198,20 @@ class FincParser(VuFindParser):
         return self._field("kxp_id_str")
 
     @property
+    def match_str(self):
+        return self._field("match_str")
+
+    @property
     def swb_id_str(self):
         return self._field("swb_id_str")
+
+    @property
+    def title_list_str(self):
+        return self._field("title_list_str")
+
+    @property
+    def title_part_str(self):
+        return self._field("title_part_str")
 
     @property
     def fincclass_txtF_mv(self):
