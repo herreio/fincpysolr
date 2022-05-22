@@ -12,7 +12,7 @@ For using this package, access (via proxy if you like) to the finc Solr infrastr
 hosted by the `Leipzig University Library <https://github.com/ubleipzig>`_ is required.
 
 In the `usage example`_ below, an imaginary member of the finc consortium
-is used. It is identified by the the not yet assigned ISIL
+is used. It is identified by the not yet assigned ISIL
 `DE-9999 <https://sigel.staatsbibliothek-berlin.de/suche/?q=isil%3DDE-9999>`_.
 Just replace the two index domains and the library code with the values of your
 institution to get started.
