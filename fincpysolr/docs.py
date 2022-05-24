@@ -222,37 +222,37 @@ class FincParser(VuFindParser):
     @property
     def branch_de14(self):
         br_isil = self._field("branch_de14")
-        if type(br_isil) == list and len(br_isil) > 0:
+        if isinstance(br_isil, list) and len(br_isil) > 0:
             return br_isil
 
     @property
     def branch_de15(self):
         br_isil = self._field("branch_de15")
-        if type(br_isil) == list and len(br_isil) > 0:
+        if isinstance(br_isil, list) and len(br_isil) > 0:
             return br_isil
 
     @property
     def branch_isil(self):
         br_isil = self._field("branch_{0}".format(self.isil_slim))
-        if type(br_isil) == list and len(br_isil) > 0:
+        if isinstance(br_isil, list) and len(br_isil) > 0:
             return br_isil
 
     @property
     def callnumber_de14(self):
         cn_de14 = self._field("callnumber_de14")
-        if type(cn_de14) == list and len(cn_de14) > 0:
+        if isinstance(cn_de14, list) and len(cn_de14) > 0:
             return cn_de14
 
     @property
     def callnumber_de15(self):
         cn_de15 = self._field("callnumber_de15")
-        if type(cn_de15) == list and len(cn_de15) > 0:
+        if isinstance(cn_de15, list) and len(cn_de15) > 0:
             return cn_de15
 
     @property
     def callnumber_isil(self):
         cn_isil = self._field("callnumber_{0}".format(self.isil_slim))
-        if type(cn_isil) == list and len(cn_isil) > 0:
+        if isinstance(cn_isil, list) and len(cn_isil) > 0:
             return cn_isil
 
     @property
@@ -377,7 +377,7 @@ class FincArticleParser:
             self.fullrecord = doc["fullrecord"]
 
     def _field(self, name):
-        if self.fullrecord is not None and type(self.fullrecord) == dict:
+        if isinstance(self.fullrecord, dict):
             if name in self.fullrecord:
                 return self.fullrecord[name]
 
