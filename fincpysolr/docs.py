@@ -334,6 +334,8 @@ class FincMarcParser(VuFindMarcParser):
                     for sf in field["852"]["subfields"]:
                         if "a" in sf and "a" not in holding:
                             holding["a"] = sf["a"]
+                        if "c" in sf and "c" not in holding:
+                            holding["c"] = sf["c"]
                         if "x" in sf and "x" not in holding:
                             holding["x"] = sf["x"]
                         if "z" in sf and "z" not in holding:
