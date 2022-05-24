@@ -3,6 +3,7 @@ Parse finc Solr documents.
 """
 
 import datetime
+from dateutil.parser import isoparse
 
 from vupysolr.docs import VuFindParser, VuFindMarcParser
 
@@ -342,6 +343,38 @@ class FincMarcParser(VuFindMarcParser):
                             holding["z"] = sf["z"]
                     if "a" in holding and holding["a"] == self.isil:
                         return holding
+
+    @property
+    def holding_date(self):
+        holding = self.holding_location
+        if holding is not None and "x" in holding:
+            return holding["x"]
+
+    @property
+    def holding_date_obj(self):
+        timestamp = self.holding_date
+        if timestamp:
+            return isoparse(timestamp).date()
+
+    @property
+    def holding_datetime(self):
+        holding = self.holding_location
+        if holding is not None and "z" in holding:
+            return holding["z"]
+
+    @property
+    def holding_datetime_obj(self):
+        timestamp = self.holding_datetime
+        if timestamp:
+            return isoparse(timestamp)
+
+    @property
+    def holding_purchase(self):
+        holding = self.holding_location
+        if holding is not None and "c" in holding:
+            if holding["c"] == "e":  # PICA 7100 / 209A $D Ausleihindikator (e Erwerbungsdaten)
+                return True
+        return False
 
     @property
     def holding_elocation(self):
