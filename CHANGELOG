@@ -1,3 +1,6 @@
+0.1.8 [2022-05-25]
+- add holding properties to FincMarcParser
+
 0.1.7 [2022-05-24]
 - consider $c in FincMarcParser.holding_location
 
