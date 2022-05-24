@@ -1,3 +1,6 @@
+0.1.7 [2022-05-24]
+- consider $c in FincMarcParser.holding_location
+
 0.1.6 [2022-05-22]
 - add methods to FincParser
 
