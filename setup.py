@@ -11,5 +11,5 @@ setuptools.setup(
     license="GPLv3",
     url="https://github.com/herreio/fincpysolr",
     packages=["fincpysolr"],
-    install_requires=["vupysolr"],
+    install_requires=["vupysolr", "python-dateutil"],
 )
