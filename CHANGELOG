@@ -1,3 +1,6 @@
+0.1.9 [2022-06-19]
+- add ctrlnum_dnb property to FincParser
+
 0.1.8 [2022-05-25]
 - add holding properties to FincMarcParser
 
