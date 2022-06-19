@@ -68,6 +68,10 @@ class FincParser(VuFindParser):
                 return isil_ctrl
 
     @property
+    def ctrlnum_dnb(self):
+        return self._ctrlnum_isil("DE-101")
+
+    @property
     def ctrlnum_bsz(self):
         return self._ctrlnum_isil("DE-576")
 
