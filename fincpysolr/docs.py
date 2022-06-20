@@ -47,7 +47,7 @@ class FincParser(VuFindParser):
     @property
     def building_isil(self):
         bs = self.building
-        if bs is not None:
+        if isinstance(bs, list):
             buildings = []
             for b in bs:
                 if b.startswith(self.isil_pattern):
@@ -57,7 +57,7 @@ class FincParser(VuFindParser):
 
     def _ctrlnum_isil(self, isil, unique=True):
         ctrlnums = self.ctrlnum
-        if ctrlnums is not None:
+        if isinstance(ctrlnums, list):
             isil_ctrl = []
             for ctrln in ctrlnums:
                 if ctrln.startswith(self._isil_pattern(isil)):
@@ -100,7 +100,7 @@ class FincParser(VuFindParser):
     @property
     def barcode_isil(self):
         bcs = self.barcode
-        if bcs is not None:
+        if isinstance(bcs, list):
             barcodes = []
             for bc in bcs:
                 if bc.startswith(self.isil_pattern):
@@ -139,7 +139,7 @@ class FincParser(VuFindParser):
     @property
     def rsn_isil(self):
         rsns = self.rsn
-        if rsns is not None:
+        if isinstance(rsns, list):
             for rsn in rsns:
                 if rsn.startswith(self.isil_pattern):
                     return rsn.replace(self.isil_pattern, "")
@@ -162,7 +162,7 @@ class FincParser(VuFindParser):
 
     def _signatur_isil(self, isil):
         signatur = self.signatur
-        if signatur is not None:
+        if isinstance(signatur, list):
             signatur_isil = [s.replace(self._isil_pattern(isil), "")
                              for s in signatur if s.startswith(self._isil_pattern(isil))]
             if len(signatur_isil) > 0:
@@ -333,7 +333,7 @@ class FincMarcParser(VuFindMarcParser):
     @property
     def latest_transaction_datetime(self):
         latest_trans = self.latest_transaction
-        if latest_trans is not None:
+        if isinstance(latest_trans, str):
             try:
                 return datetime.datetime.strptime(latest_trans, DT005)
             except ValueError:
@@ -344,7 +344,7 @@ class FincMarcParser(VuFindMarcParser):
 
     @property
     def holding_location(self):
-        if self.fields is not None:
+        if isinstance(self.fields, list):
             for field in self.fields:
                 if "852" in field and "subfields" in field["852"]:
                     holding = {}
@@ -363,7 +363,7 @@ class FincMarcParser(VuFindMarcParser):
     @property
     def holding_date(self):
         holding = self.holding_location
-        if holding is not None and "x" in holding:
+        if isinstance(holding, dict) and "x" in holding:
             return holding["x"]
 
     @property
@@ -375,7 +375,7 @@ class FincMarcParser(VuFindMarcParser):
     @property
     def holding_datetime(self):
         holding = self.holding_location
-        if holding is not None and "z" in holding:
+        if isinstance(holding, dict) and "z" in holding:
             return holding["z"]
 
     @property
@@ -387,7 +387,7 @@ class FincMarcParser(VuFindMarcParser):
     @property
     def holding_purchase(self):
         holding = self.holding_location
-        if holding is not None and "c" in holding:
+        if isinstance(holding, dict) and "c" in holding:
             if holding["c"] == "e":  # PICA 7100 / 209A $D Ausleihindikator (e Erwerbungsdaten)
                 return True
         return False
@@ -395,7 +395,7 @@ class FincMarcParser(VuFindMarcParser):
     @property
     def holding_elocation(self):
         elocations = []
-        if self.fields is not None:
+        if isinstance(self.fields, list):
             for field in self.fields:
                 if "856" in field and "subfields" in field["856"]:
                     holding = {"ind1": field["856"]["ind1"], "ind2": field["856"]["ind2"]}
