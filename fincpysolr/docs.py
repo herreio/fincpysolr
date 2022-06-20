@@ -226,6 +226,14 @@ class FincParser(VuFindParser):
     def rsn_id_str_mv(self):
         return self._field("rsn_id_str_mv")
 
+    @property
+    def rsn_id_str_mv_isil(self):
+        rsns = self.rsn_id_str_mv
+        if isinstance(rsns, list):
+            for rsn in rsns:
+                if rsn.startswith(self.isil_pattern):
+                    return rsn.replace(self.isil_pattern, "")
+
     # dynamic fields (finc)
 
     @property
