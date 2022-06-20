@@ -1,3 +1,6 @@
+0.1.11 [2022-06-20]
+- add rsn_id_str_mv_isil property to FincParser
+
 0.1.10 [2022-06-20]
 - add rsn_id_str_mv property to FincParser
 
