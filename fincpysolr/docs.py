@@ -222,6 +222,10 @@ class FincParser(VuFindParser):
     def fincclass_txtF_mv(self):
         return self._field("fincclass_txtF_mv")
 
+    @property
+    def rsn_id_str_mv(self):
+        return self._field("rsn_id_str_mv")
+
     # dynamic fields (finc)
 
     @property
