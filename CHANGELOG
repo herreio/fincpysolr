@@ -1,3 +1,6 @@
+0.1.12 [2022-10-29]
+- add find_id methods to FincIndex
+
 0.1.11 [2022-06-20]
 - add rsn_id_str_mv_isil property to FincParser
 
