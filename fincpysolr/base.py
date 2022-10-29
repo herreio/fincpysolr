@@ -35,6 +35,19 @@ class FincIndex(VuFindIndex):
                 else:
                     self.logger.warning("Found multiple documents matching query {0}".format(query))
 
+    def find_id(self, query):
+        document = self.find_doc(query, fl="id,institution")
+        if document and hasattr(document, "id"):
+            return document.id
+
+    def query_record_id(self, rid):
+        rid = '"{0}"'.format(rid)
+        return self.query("record_id", rid)
+
+    def find_id_by_record_id(self, rid):
+        query = self.query_record_id(rid)
+        return self.find_id(query)
+
     def check_institution(self, document):
         if document is not None:
             if "institution" in document:
