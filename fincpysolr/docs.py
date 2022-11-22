@@ -134,6 +134,9 @@ class FincParser(VuFindParser):
 
     @property
     def rsn(self):
+        """
+        deprecated
+        """
         return self._field("rsn")
 
     @property
