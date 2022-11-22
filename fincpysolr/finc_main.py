@@ -24,7 +24,7 @@ class FincMain(FincIndex):
 
     def query_rsn(self, rsn):
         rsn = '"({0}){1}"'.format(self.institution, rsn)
-        return self.query("rsn", rsn)
+        return self.query("rsn_id_str_mv", rsn)
 
     def query_kxp_ppn(self, ppn):
         ppn = '"{0}"'.format(ppn)
