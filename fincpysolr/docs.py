@@ -141,6 +141,9 @@ class FincParser(VuFindParser):
 
     @property
     def rsn_isil(self):
+        """
+        deprecated
+        """
         rsns = self.rsn
         if isinstance(rsns, list):
             for rsn in rsns:
