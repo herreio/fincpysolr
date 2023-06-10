@@ -23,7 +23,7 @@ class FincAI(FincIndex):
                     fullrecord = self._get_blob(blob_id)
                     if fullrecord is not None:
                         document["fullrecord"] = fullrecord
-        if document is not None:
+        if document is not None and self.check_institution(document):
             return FincParser(document, self.institution, marc=False, ai=blob)
 
     def get_blob_url(self, id):

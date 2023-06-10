@@ -20,7 +20,6 @@ class FincIndex(VuFindIndex):
             document = self._get(id, post=self.decode_marc)
         else:
             document = self._get(id)
-        document = self._get(id)
         if self.check_institution(document):
             return FincParser(document, self.institution)
 

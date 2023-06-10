@@ -15,7 +15,7 @@ class FincMain(FincIndex):
             document = self._get(id, post=self.decode_marc)
         else:
             document = self._get(id)
-        if document is not None:
+        if document is not None and self.check_institution(document):
             return FincParser(document, self.institution, marc=marc, ai=False)
 
     def query_barcode(self, barcode):
