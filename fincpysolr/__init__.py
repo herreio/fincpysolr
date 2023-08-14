@@ -10,6 +10,7 @@ __version__ = "0.1.14"
 from .finc_ai import FincAI
 from .finc_main import FincMain
 from .slub_kxp import SlubKxp
+from .slub_nova import SlubNova
 from .base import FincCluster
 from .docs import FincParser
 
