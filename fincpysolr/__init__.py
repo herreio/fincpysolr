@@ -5,7 +5,7 @@ For more information on finc, see https://finc.info.
 """
 
 __author__ = "Donatus Herre <donatus.herre@slub-dresden.de>"
-__version__ = "0.1.14"
+__version__ = "0.1.15"
 
 from .finc_ai import FincAI
 from .finc_main import FincMain
