@@ -30,7 +30,7 @@ def cluster(finc_ai_domain, finc_main_domain, isil, loglevel=0):
     return FincCluster([finc_ai, finc_main])
 
 
-def cluster_de14(finc_ai_domain, finc_main_domain, slub_kxp_domain, loglevel=0):
+def cluster_de14(finc_ai_domain, finc_main_domain, slub_main_domain, loglevel=0):
     finc_ai = FincAI(finc_ai_domain, "DE-14", loglevel=loglevel)
     finc_main = FincMain(finc_main_domain, "DE-14", loglevel=loglevel)
     slub_main = SlubMain(slub_main_domain, "DE-14", loglevel=loglevel)
