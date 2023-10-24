@@ -9,7 +9,8 @@ __version__ = "0.1.15"
 
 from .finc_ai import FincAI
 from .finc_main import FincMain
-from .slub_kxp import SlubKxp
+from .slub_kxp import SlubKxp       # deprecated
+from .slub_main import SlubMain
 from .slub_nova import SlubNova
 from .base import FincCluster
 from .docs import FincParser
@@ -32,5 +33,5 @@ def cluster(finc_ai_domain, finc_main_domain, isil, loglevel=0):
 def cluster_de14(finc_ai_domain, finc_main_domain, slub_kxp_domain, loglevel=0):
     finc_ai = FincAI(finc_ai_domain, "DE-14", loglevel=loglevel)
     finc_main = FincMain(finc_main_domain, "DE-14", loglevel=loglevel)
-    slub_kxp = SlubKxp(slub_kxp_domain, "DE-14", loglevel=loglevel)
-    return FincCluster([finc_ai, finc_main, slub_kxp])
+    slub_main = SlubMain(slub_main_domain, "DE-14", loglevel=loglevel)
+    return FincCluster([finc_ai, finc_main, slub_main])

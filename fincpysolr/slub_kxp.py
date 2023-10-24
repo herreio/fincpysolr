@@ -1,3 +1,7 @@
+"""
+deprecated
+"""
+
 import logging
 
 from .base import FincIndex
