@@ -1,3 +1,6 @@
+0.2.5 [2023-12-17]
+- add method find_id_by_record_id to FincMain and SlubMain
+
 0.2.4 [2023-12-17]
 - prevent parsing non-MARC data
 
