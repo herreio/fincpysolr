@@ -24,7 +24,8 @@ class FincParser(VuFindParser):
         self.isil_slim = self._isil_slim(isil)
         self.isil_pattern = self._isil_pattern(isil)
         super().__init__(doc, marc=marc)
-        if marc:
+        if marc and (self.recordtype and "marc" in self.recordtype or
+                     self.record_format and "marc" in self.record_format):
             self.marc = FincMarcParser(self.raw, self.isil)
         self.ai_blob = None
         if ai:
