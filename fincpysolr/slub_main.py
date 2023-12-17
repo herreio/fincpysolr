@@ -34,6 +34,10 @@ class SlubMain(FincIndex):
         ppn = '"{0}"'.format(ppn)
         return self.query("swb_id_str", ppn)
 
+    def query_record_id(self, rid):
+        rid = '"{0}"'.format(rid)
+        return self.query("record_id", rid)
+
     def find_id_by_barcode(self, barcode):
         query = self.query_barcode(barcode)
         return self.find_id(query)
@@ -48,4 +52,8 @@ class SlubMain(FincIndex):
 
     def find_id_by_swb_ppn(self, ppn):
         query = self.query_swb_ppn(ppn)
+        return self.find_id(query)
+
+    def find_id_by_record_id(self, rid):
+        query = self.query_record_id(rid)
         return self.find_id(query)
