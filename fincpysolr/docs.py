@@ -241,6 +241,22 @@ class FincParser(VuFindParser):
                 if rsn.startswith(self.isil_pattern):
                     return rsn.replace(self.isil_pattern, "")
 
+    @property
+    def inventory_info_de14_str_mv(self):
+        return self._field("inventory_info_de14_str_mv")
+
+    @property
+    def url_de14_str_mv(self):
+        return self._field("url_de14_str_mv")
+
+    @property
+    def de14_podcast_txt(self):
+        return self._field("de14_podcast_txt")
+
+    @property
+    def de14_provenance_txt_mv(self):
+        return self._field("de14_provenance_txt_mv")
+
     # dynamic fields (finc)
 
     @property
