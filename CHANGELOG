@@ -1,3 +1,9 @@
+0.2.6 [2024-09-18]
+- add properties to FincParser
+- add arguments to FincMain
+- add arguments to FincAI
+- parse fullrecord in FincAI
+
 0.2.5 [2023-12-17]
 - add method find_id_by_record_id to FincMain and SlubMain
 
