@@ -6,9 +6,9 @@ from .docs import FincParser
 
 class FincMain(FincIndex):
 
-    def __init__(self, domain, institution, loglevel=logging.WARNING):
+    def __init__(self, domain, institution, core="biblio", name="finc-main", loglevel=logging.WARNING):
         self.domain = domain.strip("/")
-        super().__init__(url="{0}/solr".format(self.domain), core="biblio", name="finc-main", institution=institution, marc=True, loglevel=loglevel)
+        super().__init__(url="{0}/solr".format(self.domain), core=core, name=name, institution=institution, marc=True, loglevel=loglevel)
 
     def get(self, id, marc=True):
         if marc:
