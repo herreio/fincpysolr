@@ -2,6 +2,8 @@
 Parse finc Solr documents.
 """
 
+import re
+import base64
 import datetime
 from dateutil.parser import isoparse
 
@@ -87,6 +89,13 @@ class FincParser(VuFindParser):
     @property
     def ctrlnum_oclc(self):
         return self._ctrlnum_isil("OCoLC", unique=False)
+
+    @property
+    def id_b64(self):
+        try:
+            return base64.b64decode(re.sub("^(ai-|finc-)?(\d){1,3}-", "", self.id + "==")).decode("UTF-8")
+        except (UnicodeDecodeError, base64.binascii.Error):
+            pass
 
     # static fields (finc)
 
