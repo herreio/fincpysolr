@@ -16,7 +16,7 @@ class FincParser(VuFindParser):
     finc Solr document parser
 
     For the Solr schema used by finc, see
-    https://github.com/finc/index/blob/master/schema.xml
+    https://git.sc.uni-leipzig.de/ubl/finc/fincmarcimport/-/blob/main/solr/vufind/biblio/conf/schema.xml
     """
 
     def __init__(self, doc, isil, marc=False, ai=False):
