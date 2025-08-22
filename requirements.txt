@@ -1,10 +1,10 @@
-certifi==2024.8.30
-charset-normalizer==3.3.2
+certifi==2025.8.3
+charset-normalizer==3.4.3
 idna==3.10
-pymarc==5.2.2
-pysolr==3.9.0
+pymarc==5.3.1
+pysolr==3.10.0
 python-dateutil==2.9.0.post0
-requests==2.32.3
-six==1.16.0
-urllib3==2.2.3
+requests==2.32.5
+six==1.17.0
+urllib3==2.5.0
 vupysolr==0.2.2
