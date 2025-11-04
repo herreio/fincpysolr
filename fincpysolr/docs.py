@@ -93,7 +93,7 @@ class FincParser(VuFindParser):
     @property
     def id_b64(self):
         try:
-            return base64.urlsafe_b64decode(re.sub("^(ai-|finc-)?(\d){1,3}-", "", self.id + "==")).decode("UTF-8")
+            return base64.urlsafe_b64decode(re.sub(r"^(ai-|finc-)?(\d){1,3}-", "", self.id + "==")).decode("UTF-8")
         except (UnicodeDecodeError, base64.binascii.Error):
             pass
 
